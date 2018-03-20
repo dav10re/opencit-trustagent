@@ -19,6 +19,13 @@ public class TpmQuoteRequest {
     private int[] pcrs; // variable-length array of pcr index numbers, each one 0-23 
     private String pcrbanks; //the selected PCR banks (SHA1, SHA256, or both) for TPM 2.0
 
+    //--------- Added by dav10re ---------------
+    //Added a boolean value to see if IMA attestation is requested
+    
+    private boolean ima = false;
+    
+    //-----------------------------------------
+    
     public String getPcrbanks() {
         return pcrbanks;
     }
@@ -53,4 +60,15 @@ public class TpmQuoteRequest {
         return pcrs;
     }
     
+    //-------- Added by dav10re -----------
+    
+    public boolean isIMA() {
+        return ima;
+    }
+    
+    public void setIMA(boolean value) {
+        this.ima = value;
+    }
+    
+    //------------------------------------
 }

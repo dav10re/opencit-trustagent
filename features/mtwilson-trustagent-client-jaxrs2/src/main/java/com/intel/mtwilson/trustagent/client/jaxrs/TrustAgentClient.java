@@ -306,10 +306,15 @@ public class TrustAgentClient extends MtWilsonClient {
      *   TpmQuoteResponse tpmQuote = client.getTpmQuote(nonce, pcrs);
      * </xmp></pre></div>
      */
-    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs) {
+    
+    
+    //------------------ Added by dav10re --------------------
+    
+    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, boolean IMA) {
         TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
         tpmQuoteRequest.setNonce(nonce);
         tpmQuoteRequest.setPcrs(pcrs);
+        tpmQuoteRequest.setIMA(IMA);
         log.debug("target: {}", getTarget().getUri().toString());
         TpmQuoteResponse tpmQuoteResponse = getTarget()
                 .path("/tpm/quote")
@@ -318,6 +323,23 @@ public class TrustAgentClient extends MtWilsonClient {
                 .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
         return tpmQuoteResponse;
     }
+    
+    /*public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs) {
+        TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
+        tpmQuoteRequest.setNonce(nonce);
+        tpmQuoteRequest.setPcrs(pcrs);
+        log.debug("target: {}", getTarget().getUri().toString());
+        TpmQuoteResponse tpmQuoteResponse = getTarget()
+        .path("/tpm/quote")
+        .request()
+        .accept(MediaType.APPLICATION_XML)
+        .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
+        return tpmQuoteResponse;
+    }*/
+    
+    //--------------------------------------------
+    
+    
     
     /**
      * Retrieves the AIK signed quote from TPM for specified PCR bank.  
@@ -357,11 +379,15 @@ public class TrustAgentClient extends MtWilsonClient {
      *   TpmQuoteResponse tpmQuote = client.getTpmQuote(nonce, pcrs, pcrBanks);
      * </xmp></pre></div>
      */
-    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String pcrBank) {
+    
+    //----------------------- Added by dav10re -------------------------
+    
+    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String pcrBank, boolean IMA) {
         TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
         tpmQuoteRequest.setNonce(nonce);
         tpmQuoteRequest.setPcrs(pcrs);
         tpmQuoteRequest.setPcrbanks(pcrBank);
+        tpmQuoteRequest.setIMA(IMA);
         log.debug("target: {}", getTarget().getUri().toString());
         TpmQuoteResponse tpmQuoteResponse = getTarget()
                 .path("/tpm/quote")
@@ -370,6 +396,26 @@ public class TrustAgentClient extends MtWilsonClient {
                 .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
         return tpmQuoteResponse;
     }
+    
+    /*
+     public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String pcrBank) {
+     TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
+     tpmQuoteRequest.setNonce(nonce);
+     tpmQuoteRequest.setPcrs(pcrs);
+     tpmQuoteRequest.setPcrbanks(pcrBank);
+     log.debug("target: {}", getTarget().getUri().toString());
+     TpmQuoteResponse tpmQuoteResponse = getTarget()
+     .path("/tpm/quote")
+     .request()
+     .accept(MediaType.APPLICATION_XML)
+     .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
+     return tpmQuoteResponse;
+     }
+     
+    */
+    
+    //---------------------------------------------------
+    
     
     /**
      * Retrieves the AIK signed quote from TPM for specified PCR bank.  
@@ -409,7 +455,27 @@ public class TrustAgentClient extends MtWilsonClient {
      *   TpmQuoteResponse tpmQuote = client.getTpmQuote(nonce, pcrs, pcrBanks);
      * </xmp></pre></div>
      */
-    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String[] pcrBanks) {
+    
+    //---------------- Added by dav10re -----------------
+    
+    public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String[] pcrBanks, boolean IMA) {
+        TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
+        tpmQuoteRequest.setNonce(nonce);
+        tpmQuoteRequest.setPcrs(pcrs);
+        
+        tpmQuoteRequest.setPcrbanks(StringUtils.join(pcrBanks, " "));
+        tpmQuoteRequest.setIMA(IMA);
+        log.debug("target: {}", getTarget().getUri().toString());
+        TpmQuoteResponse tpmQuoteResponse = getTarget()
+        .path("/tpm/quote")
+        .request()
+        .accept(MediaType.APPLICATION_XML)
+        .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
+        return tpmQuoteResponse;
+    }
+    
+    
+    /*public TpmQuoteResponse getTpmQuote(byte[] nonce, int[] pcrs, String[] pcrBanks) {
         TpmQuoteRequest tpmQuoteRequest = new TpmQuoteRequest();
         tpmQuoteRequest.setNonce(nonce);
         tpmQuoteRequest.setPcrs(pcrs);
@@ -422,8 +488,10 @@ public class TrustAgentClient extends MtWilsonClient {
                 .accept(MediaType.APPLICATION_XML)
                 .post(Entity.json(tpmQuoteRequest), TpmQuoteResponse.class);
         return tpmQuoteResponse;
-    }
+    }*/
 
+    //--------------------------------------------------
+    
     /**
      * Retrieves the TPM binding key certificate.
      * @return X509Certificate object with the TPM binding key certificate.
