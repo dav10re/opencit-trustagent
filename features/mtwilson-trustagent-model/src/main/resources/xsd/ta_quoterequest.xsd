@@ -5,6 +5,7 @@
       <xsd:sequence>
         <xsd:element name="nonce" type="xsd:string" />
         <xsd:element name="pcr_list" type="xsd:string" />
+        <xsd:element name="IMA" type="xsd:boolean"/>
       </xsd:sequence>
     </xsd:complexType>
   </xsd:element>
