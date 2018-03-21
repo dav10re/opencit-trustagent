@@ -47,6 +47,21 @@ public class TADataContext {
     private String sessionId;
     private String tcbMeasurement;
     private String selectedPcrBanks;
+    
+    //---------- Added by dav10re ------------
+    
+    private String imaMeasurement;
+    
+    public String getImaMeasurement() {
+        return imaMeasurement;
+    }
+    
+    public void setImaMeasurement(String imaMeasurement) {
+        this.imaMeasurement = imaMeasurement;
+    }
+    
+    //---------------------------------------
+    
 
     public String getSelectedPcrBanks() {
         return selectedPcrBanks;

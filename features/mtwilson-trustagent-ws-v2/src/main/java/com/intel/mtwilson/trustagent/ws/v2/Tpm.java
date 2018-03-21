@@ -17,6 +17,7 @@ import com.intel.dcsg.cpg.crypto.Sha1Digest;
 import com.intel.mountwilson.common.ErrorCode;
 import com.intel.mountwilson.trustagent.commands.ReadAssetTag;
 import com.intel.mountwilson.trustagent.commands.RetrieveTcbMeasurement;
+import com.intel.mountwilson.trustagent.commands.RetrieveImaMeasurement;
 import com.intel.mtwilson.trustagent.TrustagentConfiguration;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -146,6 +147,17 @@ public class Tpm {
         logPerformance("GenerateModulesCmd");
         new RetrieveTcbMeasurement(context).execute(); //does nothing if measurement.xml does not exist
         logPerformance("RetrieveTcbMeasurement");
+        
+        //------- Added by dav10re --------
+        //Checking if IMA attestation is requested
+        
+        if(tpmQuoteRequest.isIMA()){
+            
+            new RetrieveIMAMeasurement(context).execute();
+            logPerformance("RetrieveIMAMeasurement");
+        }
+        
+        //---------------------------------
     
         new GenerateQuoteCmd(context).execute();
         logPerformance("GenerateQuoteCmd");

@@ -27,6 +27,14 @@ public class TpmQuoteResponse {
     public byte[] quote;
     public String eventLog; // base64-encoded xml ....
     public String tcbMeasurement;
+    
+    //------------ Added by dav10re -----------
+    //Inserting ima measurements
+    
+    public String imaMeasurement;
+    
+    //-----------------------------------------
+    
     public String selectedPcrBanks;
     
     // added for assetTag attestation based on sha1(nonce | assetTag
