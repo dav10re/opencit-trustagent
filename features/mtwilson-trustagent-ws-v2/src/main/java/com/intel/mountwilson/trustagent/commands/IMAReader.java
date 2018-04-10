@@ -20,7 +20,7 @@ public class IMAReader {
 
     private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(IMAReader.class);
 	
-	private String ima_file_path = "/var/log/trustagent/ima.txt";
+	private String ima_file_path = "/sys/kernel/security/ima/ascii_runtime_measurements";
 	
 	public IMAMeasurements getIMAMeasurements(){
 		
@@ -28,11 +28,12 @@ public class IMAReader {
 		
 		try{
 			
-			String[] cmdArray = {"cp",
+			/*String[] cmdArray = {"cp",
 					"/sys/kernel/security/ima/ascii_runtime_measurements",
 					ima_file_path};
 	    	Runtime.getRuntime().exec(cmdArray);
-			
+			*/
+             
 			FileReader ima_file = new FileReader(ima_file_path);
 			BufferedReader bufRead = new BufferedReader(ima_file);
 			String line = null;
@@ -41,21 +42,18 @@ public class IMAReader {
 			
 			while ( (line = bufRead.readLine()) != null)
 			{    
-			    if(line.indexOf("sha1:") == -1){
+                String[] token = line.split("\\s+");
+                
+                //Get the template-hash value because this is used for the PCR 10 extension process
+                String sha1_value = token[1];
+                
+                //This is necessary because some hash values are equal to 0..0 and in the extension process
+                //they are set to 1..1 (see file measure.c in ltp-ima-standalone-v2.tar on IMA website
+                if (sha1_value.equals("0000000000000000000000000000000000000000"))
+                    sha1_value = "ffffffffffffffffffffffffffffffffffffffff";
 
-			    	bufRead.close();
-			    	ima_file.close();
-			    	throw new Exception();
-			    	
-			    }
-				
-				String[] token = line.split("sha1:");
 			    
-			    String[] subtoken = token[1].split(" ");
-			    
-			    String sha1_value = subtoken[0];
-			    
-			    String file_path = subtoken[1];
+			    String file_path = token[4];
 			    
 			    FileMeasurementType measured_file = new FileMeasurementType();
 			    measured_file.setPath(file_path);
