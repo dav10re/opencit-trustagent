@@ -29,10 +29,10 @@ import com.intel.mountwilson.trustagent.imameasurement.IMAMeasurements;
  * @author dav10re
  */
 public class RetrieveImaMeasurement implements ICommand {
-    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RetrieveTcbMeasurement.class);
+    private static final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(RetrieveImaMeasurement.class);
     private TADataContext context;
 
-    public RetrieveTcbMeasurement(TADataContext context) {
+    public RetrieveImaMeasurement(TADataContext context) {
         this.context = context;
     }
 
