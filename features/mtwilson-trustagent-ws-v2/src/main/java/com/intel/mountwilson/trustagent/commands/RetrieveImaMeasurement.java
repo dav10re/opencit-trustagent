@@ -55,7 +55,7 @@ public class RetrieveImaMeasurement implements ICommand {
 				throw new IOException("There are problems getting IMA measurements");
         	}
     		
-    		InputStream schemaStream = Crea_xml.class.getResourceAsStream("/xsd/IMA_Schema.xsd");
+    		InputStream schemaStream = RetrieveImaMeasurement.class.getResourceAsStream("/xsd/IMA_Schema.xsd");
 			if (schemaStream == null) {
 				log.warn("Schema not found");
 				throw new IOException("Schema not found");
