@@ -153,8 +153,8 @@ public class Tpm {
         
         if(tpmQuoteRequest.isIMA()){
             
-            new RetrieveIMAMeasurement(context).execute();
-            logPerformance("RetrieveIMAMeasurement");
+            new RetrieveImaMeasurement(context).execute();
+            logPerformance("RetrieveImaMeasurement");
         }
         
         //---------------------------------
