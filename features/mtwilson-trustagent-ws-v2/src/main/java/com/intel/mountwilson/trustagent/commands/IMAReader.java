@@ -45,7 +45,11 @@ public class IMAReader {
                 String[] token = line.split("\\s+");
                 
                 //Get the template-hash value because this is used for the PCR 10 extension process
-                String sha1_value = token[1];
+                //String sha1_value = token[1]; //only if you want template-hash
+                
+                String[] subtoken = token[3].split("sha1:"); //get filedata-hash
+                
+                String sha1_value = subtoken[1];
                 
                 //This is necessary because some hash values are equal to 0..0 and in the extension process
                 //they are set to 1..1 (see file measure.c in ltp-ima-standalone-v2.tar on IMA website
